@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;200;300;400;500;600;700;800&family=Bellefair&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: "Bellefair";
+}
+
+body,
+html {
+  overflow-x: hidden;
+}
+
+nav ul {
+  opacity: 0;
+}
+
+.popout {
+  opacity: 1;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.nav-item.active li::before,
+.destination-item.active::before {
+  width: 100%;
+  background-color: white;
+}
+
+.numbering.active {
+  background-color: white;
+  color: black;
+}
+
+.spinme {
+  animation: spinning 300s linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spinning {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
