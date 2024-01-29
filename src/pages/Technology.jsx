@@ -8,7 +8,9 @@ function Technology() {
   useEffect(() => {
     async function fetchTechnologies() {
       try {
-        const res = await fetch("http://192.168.1.254:3000/technology");
+        const res = await fetch(
+          "https://exiviuz.github.io/space-tourism-api/technology.json"
+        );
         const data = await res.json();
         setTechnologies(data);
       } catch (error) {

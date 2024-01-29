@@ -8,7 +8,9 @@ function Destination() {
   useEffect(() => {
     async function fetchDestinations() {
       try {
-        const res = await fetch("http://192.168.1.254:3000/destinations");
+        const res = await fetch(
+          "https://exiviuz.github.io/space-tourism-api/destinations.json"
+        );
         const data = await res.json();
         setDestinations(data);
       } catch (error) {
@@ -48,7 +50,7 @@ function Destination() {
             {destinations.map((destination, index) => {
               return (
                 <li
-                  key={destination.id}
+                  key={index}
                   className={`cursor-pointer relative before:content-[''] before:absolute pb-[1rem] before:w-[0] before:bottom-[0] before:left-0 before:right-0 before:mx-auto before:h-[3px] hover:before:w-[100%] before:bg-[rgba(255,255,255,0.4)]  uppercase tracking-[2px] before:transition-all destination-item ${
                     activeIndex === index ? "active" : ""
                   }`}

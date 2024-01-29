@@ -9,7 +9,9 @@ function Crew() {
   useEffect(() => {
     async function fetchCrew() {
       try {
-        const res = await fetch("http://192.168.1.254:3000/crew");
+        const res = await fetch(
+          "https://exiviuz.github.io/space-tourism-api/crew.json"
+        );
         const data = await res.json();
         console.log(data);
         setCrew(data);
