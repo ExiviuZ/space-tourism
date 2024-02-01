@@ -1,31 +1,10 @@
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { fetchDestinations } from "../services/spaceApi";
 
 function Destination() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [destinations, setDestinations] = useState([]);
-  const [loading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchDestinations() {
-      try {
-        const res = await fetch(
-          "https://exiviuz.github.io/space-tourism-api/destinations.json"
-        );
-        const data = await res.json();
-        setDestinations(data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchDestinations();
-  }, []);
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+  const destinations = useLoaderData();
 
   return (
     <div className="w-[90%] max-w-[1000px] mx-auto text-center flex flex-col gap-[1rem] mt-[2rem] mb-[3rem] lg:text-left">
@@ -91,6 +70,11 @@ function Destination() {
       </section>
     </div>
   );
+}
+
+export async function loader() {
+  const crew = await fetchDestinations();
+  return crew;
 }
 
 export default Destination;

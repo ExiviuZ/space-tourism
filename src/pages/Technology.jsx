@@ -1,31 +1,11 @@
 import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { fetchTechnologies } from "../services/spaceApi";
 
 function Technology() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [technologies, setTechnologies] = useState([]);
-  const [loading, setIsLoading] = useState(true);
+  const technologies = useLoaderData();
 
-  useEffect(() => {
-    async function fetchTechnologies() {
-      try {
-        const res = await fetch(
-          "https://exiviuz.github.io/space-tourism-api/technology.json"
-        );
-        const data = await res.json();
-        setTechnologies(data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchTechnologies();
-  }, []);
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
   return (
     <div className="text-center md:pb-[4rem] ">
       <header className="mb-[2rem] md:text-[20px] ">
@@ -83,6 +63,11 @@ function Technology() {
       </section>
     </div>
   );
+}
+
+export async function loader() {
+  const technologies = await fetchTechnologies();
+  return technologies;
 }
 
 export default Technology;

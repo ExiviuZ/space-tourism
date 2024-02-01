@@ -1,32 +1,12 @@
-import { useEffect, useState } from "react";
-import { GoDotFill, GoDot } from "react-icons/go";
+import { useState } from "react";
+import { GoDotFill } from "react-icons/go";
+import { useLoaderData } from "react-router-dom";
+import { fetchCrew } from "../services/spaceApi";
 
 function Crew() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [crew, setCrew] = useState([]);
-  const [loading, setIsLoading] = useState(true);
+  const crew = useLoaderData();
 
-  useEffect(() => {
-    async function fetchCrew() {
-      try {
-        const res = await fetch(
-          "https://exiviuz.github.io/space-tourism-api/crew.json"
-        );
-        const data = await res.json();
-        console.log(data);
-        setCrew(data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchCrew();
-  }, []);
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
   return (
     <div className="w-[90%] mx-auto text-center mt-[3rem] md:mb-[0] lg:mt-auto">
       <header>
@@ -83,6 +63,11 @@ function Crew() {
       </section>
     </div>
   );
+}
+
+export async function loader() {
+  const crew = await fetchCrew();
+  return crew;
 }
 
 export default Crew;
